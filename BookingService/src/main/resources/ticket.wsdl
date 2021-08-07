@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.ticket.train.sose.univaq.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="TicketImplService" targetNamespace="http://service.ticket.train.sose.univaq.it/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.ticket.train.sose.univaq.it/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://service.ticket.train.sose.univaq.it/" version="1.0">
+  <xs:element name="getAvailability" type="tns:getAvailability"/>
+  <xs:element name="getBookingByUserId" type="tns:getBookingByUserId"/>
+  <xs:element name="getBookingByUserIdResponse" type="tns:getBookingByUserIdResponse"/>
+  <xs:element name="getTicket" type="tns:getTicket"/>
+  <xs:element name="getTicketResponse" type="tns:getTicketResponse"/>
+  <xs:element name="getTicketsByItinerary" type="tns:getTicketsByItinerary"/>
+  <xs:element name="getTicketsByItineraryResponse" type="tns:getTicketsByItineraryResponse"/>
+  <xs:element name="setBooking" type="tns:setBooking"/>
+  <xs:element name="setBookingResponse" type="tns:setBookingResponse"/>
+  <xs:element name="setTicketPayed" type="tns:setTicketPayed"/>
+  <xs:element name="setTicketPayedResponse" type="tns:setTicketPayedResponse"/>
+  <xs:complexType name="getTicket">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getTicketResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:ticketModel"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ticketModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="itinerary" type="tns:itineraryModel"/>
+      <xs:element name="noOfPeople" type="xs:int"/>
+      <xs:element name="price" type="xs:float"/>
+      <xs:element name="ticketId" type="xs:int"/>
+      <xs:element minOccurs="0" name="travelClass" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="itineraryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arrivalTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="departureTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="from" type="xs:string"/>
+      <xs:element name="itineraryId" type="xs:int"/>
+      <xs:element minOccurs="0" name="to" type="xs:string"/>
+      <xs:element minOccurs="0" name="train" type="tns:trainModel"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="trainModel">
+    <xs:sequence>
+      <xs:element name="capacity" type="xs:int"/>
+      <xs:element name="trainId" type="xs:int"/>
+      <xs:element minOccurs="0" name="trainName" type="xs:string"/>
+      <xs:element name="trainNo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getTicketsByItinerary">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getTicketsByItineraryResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:ticketModel"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBookingByUserId">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBookingByUserIdResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:bookingModel"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bookingModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bookingDate" type="xs:string"/>
+      <xs:element name="bookingId" type="xs:int"/>
+      <xs:element minOccurs="0" name="seat" type="xs:string"/>
+      <xs:element minOccurs="0" name="status" type="xs:string"/>
+      <xs:element minOccurs="0" name="ticket" type="tns:ticketModel"/>
+      <xs:element name="userId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setBooking">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+      <xs:element name="arg1" type="xs:int"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setBookingResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setTicketPayed">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="setTicketPayedResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getAvailability">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="trainAvailabilityModel">
+    <xs:sequence>
+      <xs:element name="trainAvailability">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="key" type="xs:int"/>
+                  <xs:element minOccurs="0" name="value" type="xs:int"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SQLException" type="tns:SQLException"/>
+  <xs:complexType name="SQLException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="errorCode" type="xs:int"/>
+      <xs:element minOccurs="0" name="sQLState" type="xs:string"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="trainAvailabilityResponse" nillable="true" type="tns:trainAvailabilityModel"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getTicket">
+    <wsdl:part element="tns:getTicket" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setBookingResponse">
+    <wsdl:part element="tns:setBookingResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTicketsByItineraryResponse">
+    <wsdl:part element="tns:getTicketsByItineraryResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBookingByUserIdResponse">
+    <wsdl:part element="tns:getBookingByUserIdResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setTicketPayed">
+    <wsdl:part element="tns:setTicketPayed" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAvailability">
+    <wsdl:part element="tns:getAvailability" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTicketsByItinerary">
+    <wsdl:part element="tns:getTicketsByItinerary" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBookingByUserId">
+    <wsdl:part element="tns:getBookingByUserId" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setBooking">
+    <wsdl:part element="tns:setBooking" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAvailabilityResponse">
+    <wsdl:part element="tns:trainAvailabilityResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTicketResponse">
+    <wsdl:part element="tns:getTicketResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SQLException">
+    <wsdl:part element="tns:SQLException" name="SQLException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setTicketPayedResponse">
+    <wsdl:part element="tns:setTicketPayedResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Ticket">
+    <wsdl:operation name="getTicket">
+      <wsdl:input message="tns:getTicket" name="getTicket">
+    </wsdl:input>
+      <wsdl:output message="tns:getTicketResponse" name="getTicketResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketsByItinerary">
+      <wsdl:input message="tns:getTicketsByItinerary" name="getTicketsByItinerary">
+    </wsdl:input>
+      <wsdl:output message="tns:getTicketsByItineraryResponse" name="getTicketsByItineraryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBookingByUserId">
+      <wsdl:input message="tns:getBookingByUserId" name="getBookingByUserId">
+    </wsdl:input>
+      <wsdl:output message="tns:getBookingByUserIdResponse" name="getBookingByUserIdResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SQLException" name="SQLException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setBooking">
+      <wsdl:input message="tns:setBooking" name="setBooking">
+    </wsdl:input>
+      <wsdl:output message="tns:setBookingResponse" name="setBookingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setTicketPayed">
+      <wsdl:input message="tns:setTicketPayed" name="setTicketPayed">
+    </wsdl:input>
+      <wsdl:output message="tns:setTicketPayedResponse" name="setTicketPayedResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailability">
+      <wsdl:input message="tns:getAvailability" name="getAvailability">
+    </wsdl:input>
+      <wsdl:output message="tns:getAvailabilityResponse" name="getAvailabilityResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TicketImplServiceSoapBinding" type="tns:Ticket">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getTicket">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getTicket">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTicketResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketsByItinerary">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getTicketsByItinerary">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTicketsByItineraryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBookingByUserId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getBookingByUserId">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getBookingByUserIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SQLException">
+        <soap:fault name="SQLException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="setBooking">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="setBooking">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setBookingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setTicketPayed">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="setTicketPayed">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setTicketPayedResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAvailability">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAvailability">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAvailabilityResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TicketImplService">
+    <wsdl:port binding="tns:TicketImplServiceSoapBinding" name="TicketImplPort">
+      <soap:address location="http://localhost:8080/TicketService/ticket"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

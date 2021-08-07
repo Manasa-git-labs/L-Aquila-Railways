@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>it.univaq.sose.train.booking</groupId>
+  <artifactId>BookingService</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+  <properties>
+  		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+ 		<cxf.version>3.3.0</cxf.version>
+ 		<javax.servlet-api>3.1.0</javax.servlet-api>
+  </properties>
+  
+  <dependencies>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet-api}</version>
+			<scope>compile</scope>
+		</dependency>
+  		<dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.18</version>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-client</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>      
+  </dependencies>
+  
+  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
+				<configuration>
+					<outputDirectory>${project.basedir}/../../apache-tomcat-8.5.58/webapps</outputDirectory>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>${cxf.version}</version>
+				
+				<executions>
+					<execution>
+					<id>generate-sources-schedule</id>
+					<phase>generate-sources</phase>	
+					<configuration>
+						<sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+						<wsdlOptions>
+							<wsdlOption>
+								<wsdl>${basedir}/src/main/resources/schedule.wsdl</wsdl>
+							</wsdlOption>
+						</wsdlOptions>
+					</configuration>
+					<goals>
+						<goal>wsdl2java</goal>
+					</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>${cxf.version}</version>
+				
+				<executions>
+					<execution>
+					<id>generate-sources-ticket</id>
+					<phase>generate-sources</phase>	
+					<configuration>
+						<sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+						<wsdlOptions>
+							<wsdlOption>
+								<wsdl>${basedir}/src/main/resources/ticket.wsdl</wsdl>
+								<bindingFiles>
+									<bindingFile>${basedir}/src/main/resources/async_binding.xml</bindingFile>
+								</bindingFiles>
+							</wsdlOption>
+						</wsdlOptions>
+					</configuration>
+					<goals>
+						<goal>wsdl2java</goal>
+					</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<finalName>BookingService</finalName>
+	</build>
+	
+</project>

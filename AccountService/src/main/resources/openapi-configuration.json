@@ -1,0 +1,25 @@
+{
+	"resourcePackages": ["it.univaq.sose.train.account"],
+	"prettyPrint": true,
+	"cacheTTL": 0,
+	"openAPI": {
+		"info": {
+			"version": "1.0.0",
+			"title": "Account Service",
+			"description": "The description of the API goes here!",
+			"contact": {"email": "cxf-dev@apache.org"},
+			"license": {
+				"name": "Apache 2.0",
+				"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+			}
+		},
+		"servers": [
+			{
+				"url": "http://localhost:8080/AccountService/rest",
+				"description": "The description of the Server goes here!"
+			}
+		]
+	},
+	"userDefinedOptions": {"support.swagger.ui": true}
+}
+

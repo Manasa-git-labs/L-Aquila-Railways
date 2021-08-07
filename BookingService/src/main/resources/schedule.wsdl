@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.schedule.train.sose.univaq.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="ScheduleImplService" targetNamespace="http://service.schedule.train.sose.univaq.it/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.schedule.train.sose.univaq.it/" elementFormDefault="unqualified" targetNamespace="http://service.schedule.train.sose.univaq.it/" version="1.0">
+
+  <xs:element name="getItineraryById" type="tns:getItineraryById"/>
+
+  <xs:element name="getItineraryByIdResponse" type="tns:getItineraryByIdResponse"/>
+
+  <xs:element name="getSchedule" type="tns:getSchedule"/>
+
+  <xs:element name="getScheduleResponse" type="tns:getScheduleResponse"/>
+
+  <xs:complexType name="getSchedule">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getScheduleResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:itineraryModel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="itineraryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arrivalTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="departureTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="from" type="xs:string"/>
+      <xs:element name="itineraryId" type="xs:int"/>
+      <xs:element minOccurs="0" name="to" type="xs:string"/>
+      <xs:element minOccurs="0" name="train" type="tns:trainModel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="trainModel">
+    <xs:sequence>
+      <xs:element name="capacity" type="xs:int"/>
+      <xs:element name="trainId" type="xs:int"/>
+      <xs:element minOccurs="0" name="trainName" type="xs:string"/>
+      <xs:element name="trainNo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getItineraryById">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getItineraryByIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:itineraryModel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getItineraryByIdResponse">
+    <wsdl:part element="tns:getItineraryByIdResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSchedule">
+    <wsdl:part element="tns:getSchedule" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getItineraryById">
+    <wsdl:part element="tns:getItineraryById" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getScheduleResponse">
+    <wsdl:part element="tns:getScheduleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Schedule">
+    <wsdl:operation name="getSchedule">
+      <wsdl:input message="tns:getSchedule" name="getSchedule">
+    </wsdl:input>
+      <wsdl:output message="tns:getScheduleResponse" name="getScheduleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getItineraryById">
+      <wsdl:input message="tns:getItineraryById" name="getItineraryById">
+    </wsdl:input>
+      <wsdl:output message="tns:getItineraryByIdResponse" name="getItineraryByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ScheduleImplServiceSoapBinding" type="tns:Schedule">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getSchedule">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getSchedule">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getScheduleResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getItineraryById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getItineraryById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getItineraryByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ScheduleImplService">
+    <wsdl:port binding="tns:ScheduleImplServiceSoapBinding" name="ScheduleImplPort">
+      <soap:address location="http://localhost:8080/ScheduleService/schedule"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
